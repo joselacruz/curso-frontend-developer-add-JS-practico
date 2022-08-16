@@ -78,6 +78,23 @@
       margin-top: 14px;
       margin-bottom: 30px;
     }
+    .custom-loader {
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  border:16px solid;
+  border-color:#E4E4ED;
+  border-right-color: #766DF4;
+  animation:s2 1s infinite linear;
+  position: absolute;
+  left: calc(50% - 100px);
+  top: calc(50% - 100px);
+}
+.inactive {
+  display: none;
+}
+@keyframes s2 {to{transform: rotate(1turn)}}
+
     @media (max-width: 640px) {
       .form-container {
         height: 100%;
@@ -89,26 +106,121 @@
     }
   </style>
 </head>
-<body>
-  <div class="login">
+<body id="accountLoad">
+  <div class="custom-loader"></div>
+  <div class="login inactive" >
     <div class="form-container">
       <h1 class="title">My account</h1>
 
       <form action="/" class="form">
         <div>
           <label for="name" class="label">Name</label>
-          <p class="value">Camila Yokoo</p>
+          <p class="value" id="nameValue">Camila Yokoo</p>
 
           <label for="email" class="label">Email</label>
-          <p class="value">camilayokoo@gmail.com</p>
+          <p class="value" id="emailValue">camilayokoo@gmail.com</p>
 
           <label for="password" class="label">Password</label>
-          <p class="value">*********</p>
+          <p class="value" id="passwordValue">*********</p>
         </div>
 
         <input type="submit" value="Edit" class="secondary-button login-button">
       </form>
     </div>
   </div>
+  <script>
+    const name = document.querySelector('#nameValue');
+    const email = document.querySelector('#emailValue');
+    window.addEventListener("load",obtenerArrayClickMyAccount);
+    const buttonEdit = document.querySelector('.secondary-button');
+    buttonEdit.addEventListener("click", editarAccount);
+    const formulario = document.querySelector('.form');
+    const pageDisplay = document.querySelector('.login');
+    const loder = document.querySelector('.custom-loader');
+    const password = document.querySelector('#passwordValue');
+   
+  function showPage () {
+    pageDisplay.classList.remove('inactive'); 
+  }
+  function hiddenLoder () {
+    loder.classList.add('inactive'); 
+  }
+
+  setTimeout(showPage, 2000);
+  setTimeout(hiddenLoder, 2000);
+    function obtenerArrayClickMyAccount () {
+    name.textContent = array[0].name;
+    email.textContent = array[0].email; 
+}
+
+function editarAccount () {
+  event.preventDefault();
+  buttonEdit.style.display = "none";
+  name.contentEditable="true";
+  email.contentEditable="true";
+  password.contentEditable = "true";
+  
+  password.addEventListener("click",editShowPassword);
+  createSavedBoton();
+  const clickBotonSaved = document.querySelector('#boton-saved');
+  clickBotonSaved.addEventListener("click",undoSavedBoton);
+
+  function undoSavedBoton () {
+  event.preventDefault();
+
+  array[0].name = name.textContent;
+  array[0].email = email.textContent;
+  array[0].password = password.textContent;
+
+  if(password.textContent == "") {
+    alert("password no puede estar en blanco");
+    console.log(password.textContent.length);
+  }
+ if(password.textContent.length < 4)
+  {
+    alert("password debe ser mayor a 4 caracteres");
+  }
+  else   {
+    clickBotonSaved.style.display= "none";
+    buttonEdit.style.display = "block";
+    localStorage.setItem('myArray', JSON.stringify(array));
+    window.location.href = "./index.html";
+  }
+
+  console.log(array);
+  
+}
+
+}
+
+let array = localStorage.getItem('myArrayFinal');
+array = JSON.parse(array);
+
+function createSavedBoton () {
+  const botonSaved = document.createElement("input");
+  botonSaved.type = "submit";
+  botonSaved.classList.add("secondary-button");
+  botonSaved.setAttribute("id","boton-saved");
+  botonSaved.value = "Saved";
+  botonSaved.style.textAlign = "center";
+  formulario.appendChild(botonSaved);
+  event.preventDefault();
+}
+let executeOnlyOne = 0;
+function editShowPassword () {
+  executeOnlyOne = executeOnlyOne + 1;
+  if(executeOnlyOne < 2) {
+    password.textContent = "";
+   console.log(executeOnlyOne);
+
+  }
+
+
+
+}
+ 
+
+
+  </script>
 </body>
 </html>

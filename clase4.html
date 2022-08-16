@@ -103,21 +103,23 @@
     <div class="form-container">
       <h1 class="title">My account</h1>
 
-      <form action="/" class="form">
+      <form action="./" class="form" id="form">
         <div>
           <label for="name" class="label">Name</label>
-          <input type="text" id="name" placeholder="Teff" class="input input-name">
+          <input type="text" id="name" placeholder="Teff" class="input input-name" required>
+          
 
           <label for="email" class="label">Email</label>
-          <input type="text" id="email" placeholder="platzi@example.com" class="input input-email">
+          <input type="text" id="email" placeholder="platzi@example.com" class="input input-email" required >
 
           <label for="password" class="label">Password</label>
-          <input type="password" id="password" placeholder="*********" class="input input-password">
+          <input type="password" id="password" placeholder="*********" class="input input-password" required>
         </div>
 
         <input type="submit" value="Create" class="primary-button login-button">
       </form>
     </div>
   </div>
+  <script src="./login.js"></script>
 </body>
 </html>

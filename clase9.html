@@ -91,9 +91,23 @@
       font-size: var(--md);
       font-weight: bold;
     }
+    #close-myordens{
+      display: block;
+      width: 25px;
+      height: 25px;
+      background-image: url(./icons/icon_close.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+      filter: invert(1);
+      cursor: pointer;
+      position: absolute;
+      left: calc(28px - -60%);
+      top: 40px;
+    }
   </style>
 </head>
 <body>
+  <div id="close-myordens"> </div>
   <div class="my-order">
     <div class="my-order-container">
       <h1 class="title">My order</h1>
@@ -133,5 +147,15 @@
       </div>
     </div>
   </div>
+  <script>
+    const closeMyOrdens = document.querySelector('#close-myordens');
+    closeMyOrdens.addEventListener("click",event => {
+      window.location.href = "./index.html";
+    });
+
+   
+
+   
+  </script>
 </body>
 </html>

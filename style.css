@@ -325,6 +325,10 @@ aside {
   margin-top: 0;
   margin-bottom: 36px;
 }
+.product-info div :nth-child(1)::before {
+  content: "$";
+
+}
 .primary-button {
   background-color: var(--hospital-green);
   border-radius: 8px;
@@ -341,8 +345,9 @@ aside {
   align-items: center;
   justify-content: center;
 }
-
-
+.animate {
+  transform:scale(1.5);
+}
 
 
 @media (max-width: 640px) {
@@ -379,6 +384,11 @@ aside {
     width: 95%;
     margin: 0 auto;
   }
+
+  .logo {
+    display: block;
+  }
+
 }
 
 @media (min-width: 641px) {
