@@ -129,6 +129,10 @@
     </div>
   </div>
   <script>
+
+let array = localStorage.getItem('myArrayFinal');
+array = JSON.parse(array);
+
     const name = document.querySelector('#nameValue');
     const email = document.querySelector('#emailValue');
     window.addEventListener("load",obtenerArrayClickMyAccount);
@@ -150,7 +154,7 @@
   setTimeout(hiddenLoder, 2000);
     function obtenerArrayClickMyAccount () {
     name.textContent = array[0].name;
-    email.textContent = array[0].email; 
+    email.textContent = array[0].email;   
 }
 
 function editarAccount () {
@@ -184,17 +188,14 @@ function editarAccount () {
     clickBotonSaved.style.display= "none";
     buttonEdit.style.display = "block";
     localStorage.setItem('myArray', JSON.stringify(array));
-    window.location.href = "./index.html";
+    console.log(array);
   }
 
-  console.log(array);
   
 }
 
 }
 
-let array = localStorage.getItem('myArrayFinal');
-array = JSON.parse(array);
 
 function createSavedBoton () {
   const botonSaved = document.createElement("input");
