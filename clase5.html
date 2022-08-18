@@ -130,8 +130,9 @@
   </div>
   <script>
 
-let array = localStorage.getItem('myArrayFinal');
+var array = localStorage.getItem('myArrayFinal');
 array = JSON.parse(array);
+console.log(array);
 
     const name = document.querySelector('#nameValue');
     const email = document.querySelector('#emailValue');
@@ -188,6 +189,7 @@ function editarAccount () {
     clickBotonSaved.style.display= "none";
     buttonEdit.style.display = "block";
     localStorage.setItem('myArray', JSON.stringify(array));
+    window.location.href = "./index.html";
     console.log(array);
   }
 

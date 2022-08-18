@@ -70,20 +70,23 @@ function emailUserCheck (name) {
 function obtener () {
     var array = localStorage.getItem('myArray');
     array = JSON.parse(array);
-   
+    console.log(array);
+    console.log(passwordUser.va);
 
     for(element of array) 
     {
-        if(emailUser.value == element.email&& passwordUser.value == element.password) {
+        if(emailUser.value == element.email && passwordUser.value == element.password) {
+             console.log("iguales");
             window.location.href = "./index.html";
+            
         }
       else{
         alert("datos incorrectos");
       }
     }
     event.preventDefault();
+    
     localStorage.setItem('myArrayFinal', JSON.stringify(array));
-   
 
 }
 

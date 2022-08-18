@@ -1,7 +1,9 @@
+var array = localStorage.getItem('myArray');
+array = JSON.parse(array);
 
 
 const navEmail = document.querySelector('.navbar-email');
-
+navEmail.textContent = array[0].email;
 const desktoMenu = document.querySelector('.desktop-menu');
 const menuHamIcon = document.querySelector('.menu');
 let  countCarts = 0;
@@ -136,7 +138,7 @@ function renderProducts (productList) {
        productImgCart.setAttribute('id',"item" + product.name);
        productImgCart.addEventListener("click", () => {
         counCart.style.opacity = "1";
-        countCarts = ++ countCarts;
+        countCarts = ++ countCarts; 
        counCart.textContent = countCarts;
        productImgCart.classList.add("animate");
         if (productImgCart.classList.contains('animate')) {
@@ -237,6 +239,10 @@ function writeElementsCart () {
              counCart.textContent = parseInt(counCart.textContent) - parseInt(select[0]);
              if(parseInt(counCart.textContent) < 1) {
                 counCart.style.opacity = "0";
+                countCarts = 0;
+                
+                
+                shoppingCartContainer.classList.add('inactive');
              }
             //Restando al  Carrito
              select = select[1];
