@@ -171,6 +171,14 @@ aside {
 
 #shoppingCartContainer{
   padding:  0 24px;
+  position: relative;
+  float: right;
+  
+}
+
+#shoppingCartContainer .shopping-cart img:nth-child(4):hover {
+  filter: invert(11%) sepia(83%) saturate(7339%) hue-rotate(351deg) brightness(97%) contrast(101%);
+  cursor: pointer;
 }
 .title-container {
   display: flex;
@@ -360,7 +368,11 @@ aside {
  }
 }
 
-
+.flexOpenCart {
+  display: flex;
+  margin-inline-start: 10%;
+  flex-direction: column;
+}
 
 @media (max-width: 640px) {
   .menu {
@@ -408,3 +420,13 @@ aside {
     display: none;
   }
 }
+@media (max-width: 500px) {
+  #shoppingCartContainer{
+    width: 100%;
+    float: none;
+   
+    
+  }
+ 
+}
+
