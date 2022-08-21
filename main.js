@@ -1,7 +1,7 @@
 var array = localStorage.getItem("myArray");
 array = JSON.parse(array);
 
-const mediaQuery = window.matchMedia('(max-width: 500px)');
+const mediaQuery = window.matchMedia("(max-width: 500px)");
 const navEmail = document.querySelector(".navbar-email");
 navEmail.textContent = array[0].email;
 const desktoMenu = document.querySelector(".desktop-menu");
@@ -33,13 +33,12 @@ menuHamIcon.addEventListener("click", toogleMobileMenu);
 menuCarritoIcon.addEventListener("click", toogleCarritoAside);
 productDetailCloseIcon.addEventListener("click", closeProductDetailAside);
 menuCarritoIcon.addEventListener("mouseover", () => {
-  if(countCarts > 0 ) {
-    menuCarritoIcon.style.cursor= "pointer";
+  if (countCarts > 0) {
+    menuCarritoIcon.style.cursor = "pointer";
+  } else {
+    menuCarritoIcon.style.cursor = "auto";
   }
-  else{
-    menuCarritoIcon.style.cursor= "auto";
-  }
-})
+});
 
 function toogleDesktopMenu() {
   const isAsideClosed = shoppingCartContainer.classList.contains("inactive");
@@ -58,13 +57,32 @@ function toogleMobileMenu() {
   }
   mobileMenu.classList.toggle("inactive");
   closeProductDetailAside();
+  // debido a que los Selectores en version Mobile no tienen la misma clase (id)
+  const clickMyAccountMobile = document.querySelector("#myAccountMb");
+  clickMyAccountMobile.addEventListener("click", () => {
+    event.preventDefault();
+    window.location.href = "./clase5.html";
+  });
+  const emailMobile = document.querySelector(".email");
+  emailMobile.textContent = array[0].email;
+  emailMobile.addEventListener("click", (event) => {
+    event.preventDefault();
+  });
+  const signOutMobile = document.querySelector(".sign-out");
+  signOutMobile.addEventListener("click", () => {
+    event.preventDefault();
+    window.location.href = "./clase3.html";
+  });
+  const myOrdensMobile = document.querySelector(".myOrdensMobile");
+  myOrdensMobile.addEventListener("click", () => {
+    event.preventDefault();
+    window.location.href = "./clase9.html";
+  });
 }
 
 function toogleCarritoAside() {
-  
   if (isMobileMenuClosed) {
     mobileMenu.classList.add("inactive");
-   
   }
 
   const isProductDetailClosed =
@@ -77,12 +95,10 @@ function toogleCarritoAside() {
   if (!isDesktopMenuClosed) {
     desktoMenu.classList.add("inactive");
   }
-  if(countCarts > 0) {
+  if (countCarts > 0) {
     shoppingCartContainer.classList.toggle("inactive");
     cartMovileAndClickCart();
   }
-
-  
 }
 
 const productList = [];
@@ -137,7 +153,7 @@ function renderProducts(productList) {
     productImgCart.setAttribute("id", "item" + product.name);
     productImgCart.addEventListener("click", () => {
       counCart.style.opacity = "1";
-      countCarts = ++ countCarts;
+      countCarts = ++countCarts;
       counCart.textContent = countCarts;
       productImgCart.classList.add("animate");
       if (productImgCart.classList.contains("animate")) {
@@ -157,10 +173,8 @@ function renderProducts(productList) {
       if (productImgCart.attributes.id.value == "itemBike") {
         productList[0].quanty = productList[0].quanty + 1;
       }
-      
-        writeElementsCart();
-   
-    
+
+      writeElementsCart();
     });
 
     productInfoFigure.appendChild(productImgCart);
@@ -191,88 +205,82 @@ myOrdens.addEventListener("click", () => {
   window.location.href = "./clase9.html";
 });
 
-
 const isMobileMenuClosed = mobileMenu.classList.contains("inactive");
 const isDesktopMenuClosed = desktoMenu.classList.contains("inactive");
 function writeElementsCart() {
-    shoppingCartContainer.innerHTML = "";
-  
-    const divHead = document.createElement("div");
-    const imgDivHead = document.createElement("img");
-    divHead.classList.add("title-container");
-    imgDivHead.setAttribute("src", "./icons/flechita.svg");
-    const pDivHead = document.createElement("p");
-    pDivHead.textContent = "My order";
-    pDivHead.classList.add("title");
-    divHead.append(imgDivHead, pDivHead);
-    shoppingCartContainer.appendChild(divHead);
-    for (product of productList) {
-        
-      if (product.quanty > 0) {
-        const myOrderContainer = document.createElement("div");
-        myOrderContainer.classList.add("my-order-content");
-  
-        const shoppingCart = document.createElement("div");
-        shoppingCart.classList.add("shopping-cart");
-        const figureShoppingCart = document.createElement("figure");
-        const imgFigure = document.createElement("img");
-        imgFigure.setAttribute("src", product.imagen);
-        figureShoppingCart.appendChild(imgFigure);
-        const shoppingCartTitle = document.createElement("p");
-        shoppingCartTitle.textContent = `${product.quanty} ${product.name}`;
-        const shoppingCartPrice = document.createElement("p");
-        shoppingCartPrice.textContent = product.quanty * product.price;
-        const shoppingCartClose = document.createElement("img");
-        shoppingCartClose.setAttribute("src", "./icons/icon_close.png");
-        myOrderContainer.appendChild(shoppingCart);
-        shoppingCart.append(
-          figureShoppingCart,
-          shoppingCartTitle,
-          shoppingCartPrice,
-          shoppingCartClose
-        );
-  
-        shoppingCartContainer.appendChild(myOrderContainer);
-        shoppingCartClose.addEventListener("click", () => {
-          myOrderContainer.style.display = "none";
-          let select = shoppingCart.childNodes[1].textContent.split(" ");
-          //
-          counCart.textContent =
-            parseInt(counCart.textContent) - parseInt(select[0]);
-           
-  
-          if (parseInt(counCart.textContent) < 1) {
-            counCart.style.opacity = "0";
-            countCarts = 0;
-            counCart.textContent = countCarts;
+  shoppingCartContainer.innerHTML = "";
 
-  
-            shoppingCartContainer.classList.add("inactive");
-          }
-          //Restando al  Carrito
-          select = select[1];
-          if (select == "Bike") {
-            productList[0].quanty = 0;
-          }
-          if (select == "Pantalla") {
-            productList[1].quanty = 0;
-          }
-          if (select == "Compu") {
-            productList[2].quanty = 0;
-          }
-        });
-      }
+  const divHead = document.createElement("div");
+  const imgDivHead = document.createElement("img");
+  divHead.classList.add("title-container");
+  imgDivHead.setAttribute("src", "./icons/flechita.svg");
+  const pDivHead = document.createElement("p");
+  pDivHead.textContent = "My order";
+  pDivHead.classList.add("title");
+  divHead.append(imgDivHead, pDivHead);
+  shoppingCartContainer.appendChild(divHead);
+  for (product of productList) {
+    if (product.quanty > 0) {
+      const myOrderContainer = document.createElement("div");
+      myOrderContainer.classList.add("my-order-content");
+
+      const shoppingCart = document.createElement("div");
+      shoppingCart.classList.add("shopping-cart");
+      const figureShoppingCart = document.createElement("figure");
+      const imgFigure = document.createElement("img");
+      imgFigure.setAttribute("src", product.imagen);
+      figureShoppingCart.appendChild(imgFigure);
+      const shoppingCartTitle = document.createElement("p");
+      shoppingCartTitle.textContent = `${product.quanty} ${product.name}`;
+      const shoppingCartPrice = document.createElement("p");
+      shoppingCartPrice.textContent = product.quanty * product.price;
+      const shoppingCartClose = document.createElement("img");
+      shoppingCartClose.setAttribute("src", "./icons/icon_close.png");
+      myOrderContainer.appendChild(shoppingCart);
+      shoppingCart.append(
+        figureShoppingCart,
+        shoppingCartTitle,
+        shoppingCartPrice,
+        shoppingCartClose
+      );
+
+      shoppingCartContainer.appendChild(myOrderContainer);
+      shoppingCartClose.addEventListener("click", () => {
+        myOrderContainer.style.display = "none";
+        let select = shoppingCart.childNodes[1].textContent.split(" ");
+        //
+        counCart.textContent =
+          parseInt(counCart.textContent) - parseInt(select[0]);
+
+        if (parseInt(counCart.textContent) < 1) {
+          counCart.style.opacity = "0";
+          countCarts = 0;
+          counCart.textContent = countCarts;
+
+          shoppingCartContainer.classList.add("inactive");
+        }
+        //Restando al  Carrito
+        select = select[1];
+        if (select == "Bike") {
+          productList[0].quanty = 0;
+        }
+        if (select == "Pantalla") {
+          productList[1].quanty = 0;
+        }
+        if (select == "Compu") {
+          productList[2].quanty = 0;
+        }
+      });
     }
-    const botonCheckout = document.createElement("button");
-    botonCheckout.classList.add("primary-button");
-    botonCheckout.textContent = "Checkout";
-    shoppingCartContainer.appendChild(botonCheckout);
-    console.log(countCarts);
   }
+  const botonCheckout = document.createElement("button");
+  botonCheckout.classList.add("primary-button");
+  botonCheckout.textContent = "Checkout";
+  shoppingCartContainer.appendChild(botonCheckout);
+  console.log(countCarts);
+}
 
-function cartMovileAndClickCart () {
+function cartMovileAndClickCart() {
   if (mediaQuery.matches) {
-    
-   }
-
+  }
 }
